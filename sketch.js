@@ -1,161 +1,191 @@
-//Create two variables that will store the new objects from the class Circle
-let circleArray = []; //declare an array for the top circles
-let circleArray2 = []; //declare an array for the bottom circles
-let arraySize = 100; //there is 100 circles on each side
-var bga = 0; //alpha of the background
-let angle = 0; //set angle to 0
-let white = 0; //the colour of the first set of bubbles is black
-let white2 = 30; //the colour of the second set of bubbles is dark grey
+let sel; //variable for the dropdown box
+let currency = "GBP"; //variable for the currency
+let coin = ["bitcoin", "ethereum", "ripple", "bitcoin-cash", "cardano", "nem",
+"litecoin", "stellar", "iota", "tron", "dash", "neo", "monero", "eos", "icon",
+"qtum", "deepbrain-chain", "ethereum-classic"]; //array for the coins
+let jsondata; //array for the jsondata
+let mapColor = []; //array for the colours
+let finalColor1; //variable for the first bar chart
+let finalColor2; //for the second bar chart
+let finalColor3; //for the third
+function preloadX() {
+  background(200, 255, 255); //refreshes the background once the currency is changed
+  for (let i=0; i<coin.length; i++) {
+    //For each position of the array, load a JSON object
+    let url = "https://api.coinmarketcap.com/v1/ticker/"+coin[i]+"/?convert="+currency;
+    loadJSON ("https://api.coinmarketcap.com/v1/ticker/"+coin[i]+"/?convert="+currency, getData);
+    //currency can be selected from the drop down box menu and will show the price of the coin
+    //in that currency (e.g: euro, or pound)
+  }
+}
+
+function getData(data){
+  jsondata = data; //read json data
+  for (let i = 0; i < jsondata.length; i++) {
+    //for each position of the array, load the currencies
+
+    if (jsondata[i].percent_change_7d<-10){
+      //this one is for percentage change in 24h
+      finalColor1 = mapColor[0];
+      //if the perentage change is below -10 then it will be dark red
+    } else if (jsondata[i].percent_change_7d>-10 && jsondata[i].percent_change_7d<0){
+      finalColor1 = mapColor[1];
+      //if the perentage change is below 0 then it will be light red
+    } else if (jsondata[i].percent_change_7d>0 && jsondata[i].percent_change_7d<10){
+      finalColor1 = mapColor[2];
+      //if the perentage change is between 0 and 10 then it will be light green
+    } else if (jsondata[i].percent_change_7d>10){
+      finalColor1 = mapColor[3];
+      //if the perentage change is above 10 then it will be green
+    }
+
+    if (jsondata[i].percent_change_24h<-10){
+      //this one is for percentage change in 24h
+      finalColor2 = mapColor[0];
+      //if the perentage change is below -10 then it will be dark red
+    } else if (jsondata[i].percent_change_24h>-10 && jsondata[i].percent_change_24h<0){
+      finalColor2 = mapColor[1];
+      //if the perentage change is below 0 then it will be light red
+    } else if (jsondata[i].percent_change_24h>0 && jsondata[i].percent_change_24h<10){
+      finalColor2 = mapColor[2];
+      //if the perentage change is between 0 and 10 then it will be light green
+    } else if (jsondata[i].percent_change_24h>10){
+      finalColor2 = mapColor[3];
+      //if the perentage change is above 10 then it will be green
+    }
+
+    if (jsondata[i].percent_change_1h<-10){
+      //this one is for percentage change in 24h
+      finalColor3 = mapColor[0];
+      //if the perentage change is below -10 then it will be dark red
+    } else if (jsondata[i].percent_change_1h>-10 && jsondata[i].percent_change_1h<0){
+      finalColor3 = mapColor[1];
+      //if the perentage change is below 0 then it will be light red
+    } else if (jsondata[i].percent_change_1h>0 && jsondata[i].percent_change_1h<10){
+      finalColor3 = mapColor[2];
+      //if the perentage change is between 0 and 10 then it will be light green
+    } else if (jsondata[i].percent_change_1h>10){
+      finalColor3 = mapColor[3];
+      //if the perentage change is above 10 then it will be green
+    }
+  }
+  getCoins(jsondata, "bitcoin", 0, 0); //if the coin is bitcoin, don't change the position
+  getCoins(jsondata, "ethereum", 200, 0); //the next one is moved 200px to the right
+  getCoins(jsondata, "ripple", 400, 0); //and so on
+  getCoins(jsondata, "bitcoin-cash", 600, 0);
+  getCoins(jsondata, "cardano", 800, 0);
+  getCoins(jsondata, "nem", 1000, 0); //each row contains 6 different coins
+  getCoins(jsondata, "litecoin", 0, 200); //the next one is positioned 200px down
+  getCoins(jsondata, "stellar", 200, 200);
+  getCoins(jsondata, "iota", 400, 200);
+  getCoins(jsondata, "tron", 600, 200);
+  getCoins(jsondata, "dash", 800, 200);
+  getCoins(jsondata, "neo", 1000, 200);
+  getCoins(jsondata, "monero", 0, 400); //and so on
+  getCoins(jsondata, "eos", 200, 400);
+  getCoins(jsondata, "icon", 400, 400);
+  getCoins(jsondata, "qtum", 600, 400);
+  getCoins(jsondata, "deepbrain-chain", 800, 400);
+  getCoins(jsondata, "ethereum-classic", 1000, 400);
+
+}
+function mousePressed() {
+  if (mouseX>60 && mouseX<250 && mouseY>40 &&mouseY<225){
+    //if you press inside the box of each currency it should open a new tab/window
+    // with a website that contains more information
+    window.open("https://coinmarketcap.com/currencies/bitcoin/");
+  } else if (mouseX>260 && mouseX<450 && mouseY>40 &&mouseY<225){
+      window.open("https://coinmarketcap.com/currencies/ethereum/");
+  } else if (mouseX>460 && mouseX<650 && mouseY>40 &&mouseY<225){
+      window.open("https://coinmarketcap.com/currencies/ripple/");
+  } else if (mouseX>660 && mouseX<850 && mouseY>40 &&mouseY<225){
+      window.open("https://coinmarketcap.com/currencies/bitcoin-cash/");
+  } else if (mouseX>860 && mouseX<1050 && mouseY>40 &&mouseY<225){
+      window.open("https://coinmarketcap.com/currencies/cardano/");
+  } else if (mouseX>1060 && mouseX<1250 && mouseY>40 &&mouseY<225){
+      window.open("https://coinmarketcap.com/currencies/nem/");
+  } else if (mouseX>60 && mouseX<250 && mouseY>240 &&mouseY<425){
+      window.open("https://coinmarketcap.com/currencies/litecoin/");
+  } else if (mouseX>260 && mouseX<450 && mouseY>240 &&mouseY<425){
+      window.open("https://coinmarketcap.com/currencies/stellar/");
+  } else if (mouseX>460 && mouseX<650 && mouseY>240 &&mouseY<425){
+      window.open("https://coinmarketcap.com/currencies/iota/");
+  } else if (mouseX>660 && mouseX<850 && mouseY>240 &&mouseY<425){
+      window.open("https://coinmarketcap.com/currencies/tron/");
+  } else if (mouseX>860 && mouseX<1050 && mouseY>240 &&mouseY<425){
+      window.open("https://coinmarketcap.com/currencies/dash/");
+  } else if (mouseX>1060 && mouseX<1250 && mouseY>240 &&mouseY<425){
+      window.open("https://coinmarketcap.com/currencies/neo/");
+  } else if (mouseX>60 && mouseX<250 && mouseY>440 &&mouseY<625){
+      window.open("https://coinmarketcap.com/currencies/monero/");
+  } else if (mouseX>260 && mouseX<450 && mouseY>440 &&mouseY<625){
+      window.open("https://coinmarketcap.com/currencies/eos/");
+  } else if (mouseX>460 && mouseX<650 && mouseY>440 &&mouseY<625){
+      window.open("https://coinmarketcap.com/currencies/icon/");
+  } else if (mouseX>660 && mouseX<850 && mouseY>440 &&mouseY<625){
+      window.open("https://coinmarketcap.com/currencies/qtum/");
+  } else if (mouseX>860 && mouseX<1050 && mouseY>440 &&mouseY<625){
+      window.open("https://coinmarketcap.com/currencies/deepbrain-chain/");
+  } else if (mouseX>1060 && mouseX<1250 && mouseY>440 &&mouseY<625){
+      window.open("https://coinmarketcap.com/currencies/ethereum-classic/");
+  }
+}
+function getCoins(dataIn, coinToCheck, x, y){
+  //dataIn = jsondata, coinToCheck = each coin from the code above, x = width, y = height
+  push(); //starts a new state
+  translate(x, y); //moves each coin to the desired position
+
+  for (let i = 0; i < dataIn.length; i++) {
+    //for each coin, load the information below
+    if (dataIn[i].id == coinToCheck){
+      //do this for each coin
+      strokeWeight(0.1); //changes the strokeWeight, in this case it's very thin
+      fill(255, 150); //slightly transparent white
+      rect(55, 35, 190, 190, 20); //this rectangle has rounded edges and is behind the text and bar chart
+      strokeWeight(1); //normal strokeWeight
+      stroke(0, 100); //stroke is black
+      line(80, height/4-40, 220, height/4-40) //create a line for the bar chart
+
+      noStroke(); //removes the stroke
+      fill(finalColor1); //the colour for the bar chart, which I have created an interactive loop for
+      rect(95, height/4-40, 30, -(dataIn[i].percent_change_7d * 1.3));
+      //bar chart for for the percentage change in 7 days
+      fill(finalColor2);
+      rect(135, height/4-40, 30, -(dataIn[i].percent_change_24h * 1.5));
+      //bar chart for the percentage change in 24 hours
+      fill(finalColor3);
+      rect(175, height/4-40, 30, -(dataIn[i].percent_change_1h * 1.5));
+      //bar chart for the percentage change in 1 hour
+      fill(0); //fill for the text is black
+      text(dataIn[i].name, 150, height/4-110); //name of the coin
+      text("Price: $" + dataIn[i].price_usd, 150, height/4-90); //price of the coin in us dollars
+      text("Market Cap: $" + dataIn[i].market_cap_usd, 150, height/4-70);
+      //market cap of the coin in us dollars
+      text("% Change in 1h: " + dataIn[i].percent_change_1h + "%", 150, height/4-50);
+      //percentage change of the price of the coin in 1 hour
+      text("% Change in 24h: " + dataIn[i].percent_change_24h + "%", 150, height/4-30);
+      //percentage change of the price of the coin in 24 hours
+      text("% Change in 7d: " + dataIn[i].percent_change_7d + "%", 150, height/4-10);
+      //percentage change of the price of the coin in 7 days
+      text("Price: £" + dataIn[i].price_gbp, 150, height/4+10);
+      //this is where i show the price of the coin in the chosen currency
+      fill(0, 0, 255);
+      text("Click here for more data", 150, height/4+30);
+    }
+  }
+  pop(); //end of the drawing state, return to the original state for each coin
+}
 
 function setup() {
-  var canvas = createCanvas(594, 841); //canvas size = 594x841px
-  canvas.parent("CanvasContainer");
-  //this makes the canvas in the middle based on the code used in html and css file
-  for (let i=0; i<arraySize; i++){
-    //loop for the top circles, it starts with 0, then adds another until there's 100 of them
-    circleArray[i] = new Circle(width/2, height/2, random(-4, 2), random(-5, -1), 3);
-    //declare an array and assign it to a new class then place the circles in the middle,
-    // and make them move up. the final number is the size of the circles which is 3px
-  }
-  for (let e=0; e<arraySize; e++) {
-    //loop for the bottom circles
-    circleArray2[e] = new Circle(width/2, height/2, random(-2, 4), random(1, 6), 3);
-    //same as above, except these circles move down
-  }
-}
+  mapColor[0] = color(200, 0, 0, 150); //first colour is red
+  mapColor[1] = color(255, 120, 120, 150); //second is light red
+  mapColor[2] = color(120, 255, 120, 150); //third is light green
+  mapColor[3] = color(0, 200, 0, 150); //fourth is green
+  preloadX(); //load the page
 
-function draw() {
-  background(0, bga);
-  //set background color to black and also use alpha values to make it transparent
-  for (let i=0; i<circleArray.length; i++){
-    //loop for the top circles and assign them to constructors
-    circleArray[i].moveFunction();
-    //for the movement
-    circleArray[i].displayCircle();
-    //for them to be displayed
-  }
-  for (let e=0; e<circleArray2.length; e++){
-    //loop for the bottom circles
-    circleArray2[e].moveFunction();
-    //movement
-    circleArray2[e].displayCircle();
-    //display
-  }
-
-  angle += 10;
-  //the speed of the bubbles
-
-  //Get the sin and cos value from the angle
-  let sinValueX = sin(angle);
-  //makes the sin angle to start at 0
-  let sinValueY = cos(angle);
-  //makes the cos angle to start at 0
-
-  let x2 = map(sinValueX, -1, 1, random(-200, 300), width-(random(-400, 300)));
-  let y2 = map(sinValueY, -1, 1, random(-200, 300), width-(random(-400, 300)));
-  let x3 = map(sinValueX, -1, 1, random(-200, 300), width-(random(-400, 300)));
-  let y3 = map(sinValueY, -1, 1, random(-200, 300), width-(random(-400, 300)));
-  let x4 = map(sinValueX, -1, 1, random(-200, 300), width-(random(-400, 300)));
-  let y4 = map(sinValueY, -1, 1, random(-200, 300), width-(random(-400, 300)));
-  //maps the bubble circles to appear at random location on the canvas
-  fill(white, 40);
-  //sets the fill of the bubbles to black and makes them almost transparent
-  noStroke();
-  //removes the stroke of the bubbles
-  ellipse(30+x2, 50+y2, 50, 50);
-  //ellipse is a shape of the bubbles and they are assigned location and size of 50px
-  fill(white2, 60);
-  //bubbles are dark grey and slightly transparent
-  ellipse(30+x3, 50+y3, 50, 50);
-  ellipse(30+x4, 50+y4, 50, 50);
-  //located at random locations and size of 50px
-}
-
-//Definition of the class Circle
-class Circle{
-
-  constructor(x, y, speedX, speedY, size){
-    //this constructor is assigned to the array of the circles
-    //Setup of class' variables
-    this.x = x;
-    // x coordinate
-    this.y = y;
-    // y coordinate
-    this.speedX = speedX;
-    // horizontal speed
-    this.speedY = speedY;
-    // vertical speed
-    this.size = size;
-    // size of the circles
-
-    this.rd = random(120, 200);
-    //random value of red between 120 and 200
-    this.bl = random(120, 200);
-    //random value of red between 120 and 200
-    this.grn = 0;
-    //value of green is at 0, meaning that the green colour will not appear
-    this.a = random(120, 255);
-    //random value of alpha between 120 and 255
-
-  }
-
-  //Class function that takes care of motion and collision
-  moveFunction(){
-    //Motion system - current position and speed
-    this.x = this.x + this.speedX;
-    this.y = this.y + this.speedY;
-
-    //Based on boundaries collision, reverse direction for x and y
-    if (this.x > width || this.x<0){
-      this.speedX *= -1;
-      //if the circle hits the wall it will reverse its speed
-      this.size = random(2, 4);
-      //when it hits right or left wall it will change the size to 2, 3 or 4px
-      this.y += 10;
-      //this makes the circles instantly bounce of 10px when they hit the left
-      // or right walls
-      this.rd = random(0, 55);
-      //changes/decreases the value of red when it hits the walls
-    }
-    if (this.y > (height) || this.y<0){
-      this.speedY *= -1;
-      //reverses the speed of the circle after it hits the top or bottom walls
-      this.rd = random(120, 200);
-      //brings back the original values of red
-    }
-  }
-
-
-  //Class function that displays the ellipse
-  displayCircle(){
-    noStroke();
-    //removes the stroke
-    this.fillcol = color(this.rd, this.grn, this.bl, this.a)
-    //the color of the ellipse
-    fill(this.fillcol);
-    //the fill of the ellipse, with the help of the above
-    ellipse(this.x, this.y, this.size, this.size);
-    //the ellipse script that creates the circles
-  }
-}
-
-function touchStarted(){
-  if (bga == 0) {
-    bga = 255;
-    //if the background is transparent, change the value of the alpha to 255,
-    // to erase the lines
-    white = 150;
-    white2 = 150;
-    //makes the bubbles more white
-    this.a = 255;
-    //increases the alpha value of the circles
-  } else {
-    bga = 0;
-    //if the alpha value of the background is 255, set it back to 0, which makes
-    // it transparent again
-    white = 0;
-    white2 = 30;
-    this.a = random(120, 255);
-    //changes it back to original values
-  }
+  var canvas = createCanvas(1280, 720); //canvas is 1280x720px
+  canvas.parent("CanvasContainer"); //CanvasContainer to position it in the middle
+  noLoop(); //don't loop
+  background(200, 255, 255); //background colour is light cyan
+  textAlign(CENTER); //align text to the centre
 }
