@@ -1,21 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Cryptocurrency Market</title>
-    <script src="libraries/p5.js" type="text/javascript"></script>
-    <script src="libraries/p5.dom.js" type="text/javascript"></script>
-    <script src="libraries/p5.sound.js" type="text/javascript"></script>
-    <script src="sketch.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="stylesheet.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js" type="text/javascript"></script>
-    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>DA. MI. AN.</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/portfolio.css" rel="stylesheet">
   </head>
-  <body>
-    <h1>Cryptocurrency Market</h1><!--header-->
-    <div id="CanvasContainer"></div> <!--div for the canvas to positioned in the centre-->
-    <div id="header"><!--div for the text at the bottom-->
-    <h2>By Damian Zajac</h2><!--footer-->
-  </div>
+
+  <body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">DA. MI. AN.</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#showcase">Showcase</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="overlay"></div>
+    <div id="messenger"></div>
+
+    <div class="container">
+      <section id="welcomeArea">
+        <div class="container">
+        <h1>Damian Zajac</h1>
+        <h7>Damian Zajac</h7>
+        </div>
+      </section>
+    </div>
+
+    <section id="about">
+      <div class="container">
+        <h6 class="text-center pb-5">About Me</h6>
+        <div class="row">
+          <div class="col">
+            <p class="text-right ml-6">Hi, my name is Damian. I am a first year student at Plymouth University where I study Digital Media Design.
+               I like coding and design. My other hobbies involve editing music and videos, taking pictures, and playing video games.
+               Currently I am looking for opportunities which can help me expand my horizons, experience new things, get to know new people with the same interests as me.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section class="content-section" id="showcase">
+      <div class="container">
+        <div class="content-section-heading text-center">
+          <h3 class="text-secondary mb-0">Showcase</h3>
+          <h2 class="mb-5" id="title">Recent Projects</h2>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6">
+            <a class="portfolio-item" href="GA/index.html">
+              <span class="caption">
+                <span class="caption-content">
+                  <h2>Generative Art</h2>
+                  <p class="mb-0">Visual Art Work that is based on P5.js</p>
+                </span>
+              </span>
+              <img class="img-fluid" src="img/GA-p.png" alt="">
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <a class="portfolio-item" href="CM/index.html">
+              <span class="caption">
+                <span class="caption-content">
+                  <h2>Cryptocurrency Market Charts</h2>
+                  <p class="mb-0">Visualized data using JSON, built with P5.js</p>
+                </span>
+              </span>
+              <img class="img-fluid" src="img/CM.png" alt="">
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <a class="portfolio-item">
+              <span class="caption">
+                <span class="caption-content">
+                  <h5>More Coming Soon!</h5>
+                  <p class="mb-0">I will have a few new projects coming up this summer, so stay tuned!</p>
+                </span>
+              </span>
+              <img class="img-fluid" src="img/cs-p.jpg" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h4 class="section-heading">Let's Get In Touch!</h4>
+          <hr class="my-4">
+          <p class="mb-5">Want to find out more about my work and what else I can do?
+             Feel free to call me or send me an e-mail. I will respond as soon as I can.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 ml-auto text-center">
+          <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
+          <p>07921 491964</p>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+          <p>
+            <a href="contact.html">E-Mail Me</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Damian Zajac <span id="autoDate"></span></p>
+    </div>
+  </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/vide/jquery.vide.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/portfolio.js"></script>
   </body>
 </html>
