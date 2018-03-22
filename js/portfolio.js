@@ -98,10 +98,10 @@ var Messenger = function(el){
     m.current_length = 0;
     m.fadeBuffer = false;
     m.messages = [
-      'This is a message, which can be long and all.',
-      'This could be another message.',
-      'Also short ones work!',
-      'Cool.'
+      'Hello.',
+      'Welcome to my website.',
+      'Take a look around.',
+      'Thank you.'
     ];
 
     setTimeout(m.animateIn, 100);
