@@ -1,0 +1,28 @@
+body {
+  background-color: #c8ffff; /*colour of the background outside of the canvas stays the same*/
+}
+h1 {
+  font-family: sans-serif;/*font family*/
+  font: arial;/*font*/
+  font-size: 1em;/*size of the font*/
+  margin-bottom: 0em;/*margin between header and canvas*/
+  text-align: center;/*aligns the text to the centre*/
+  color: black;/*colour of the text*/
+}
+#header {
+  font-family: sans-serif;/*font family*/
+  font: arial;/*font*/
+  font-size: 0.5em;/*size of the font*/
+  position: relative;/*position of the text is relative*/
+  min-height: 150px;/*min height from the canvas*/
+  text-align: center;/*aligns the text to the centre*/
+}
+#header-content {
+  position: absolute;/*position is absolute*/
+  bottom: 0;/*0px from the bottom*/
+  left: 0;/*0px from the left*/
+}
+#CanvasContainer {
+  width: 1280px;/*width of the canvas*/
+  margin: 0px auto;/*positions it in the middle*/
+}

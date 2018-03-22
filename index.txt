@@ -1,0 +1,35 @@
+<section id="showcase">
+      <div class="container">
+      <h2 class="text-center mt-5 pt-3">Showcase</h2>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 mb-5">
+          <div class="card w-133">
+            <img class="card-img-top" src="assets/img/babbage.jpg">
+            <div class="card-body">
+              <h5>1</h5>
+              <a class="btn btn-primary w-100 mt-2" href="#">Find Out More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-5">
+          <div class="card w-133">
+            <img class="card-img-top" src="assets/img/maryNewman.jpg">
+            <div class="card-body">
+              <h5>2</h5>
+              <a class="btn btn-primary w-100 mt-2" href="#">Find Out More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-5">
+          <div class="card w-133">
+            <img class="card-img-top" src="assets/img/rlb.jpg">
+            <div class="card-body">
+              <h5>3</h5>
+              <a class="btn btn-primary w-100 mt-2" href="#">Find Out More</a>
+            </div>
+          </div>
+        </div>
+      </div><!-- row close -->
+    </div><!-- container close -->
+    </section>
