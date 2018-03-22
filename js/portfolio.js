@@ -100,7 +100,7 @@ var Messenger = function(el){
     m.messages = [
       'Hello.',
       'Welcome to my website.',
-      'Take a look around.',
+      'Have a look around.',
       'Thank you.'
     ];
 
